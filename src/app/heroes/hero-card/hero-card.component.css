@@ -1,0 +1,14 @@
+.card-body,.card{
+  height: 100%;
+}
+.flex-row{
+  display: flex;
+  align-items: center;
+
+}
+.alert-warning{
+  margin-bottom: 1rem;
+}
+.h3{
+  padding-left: 8rem;
+}

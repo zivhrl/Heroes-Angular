@@ -25,6 +25,7 @@ export class HeroesService {
     this.http
       .get<PagedResponse>(this.apiAdress, { params })
       .subscribe((res: PagedResponse) => {
+        console.log('heroesService', res);
         this.heroes = res.data;
         this.maxPages.next(res.maxPages);
         this.heroesUpdated.next(this.heroes);
@@ -35,7 +36,7 @@ export class HeroesService {
 
   trainHero(id: string): Hero {
     this.http
-      .patch<Hero>(this.apiAdress + '/' + 'id', '')
+      .patch<Hero>(this.apiAdress + '/' + id, '')
       .subscribe((res: Hero) => {
         let index = this.heroes.findIndex((hero) => hero.id === res.id);
         this.heroes[index] = res;

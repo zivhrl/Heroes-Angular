@@ -1,0 +1,42 @@
+<div class="card mb-2">
+  <div class="card-body">
+    <h5 class="card-title">{{ hero.name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+      {{ hero.ability ? "Defender" : "Attacker" }}
+    </h6>
+    <div class="card-header">HERO'S STATS</div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        ID:
+        <p>{{ hero.id }}</p>
+      </li>
+      <li class="list-group-item">
+        Started Trainig: {{ startedTraining | date: "dd/MM/YY" }}
+      </li>
+      <li class="list-group-item">Suit Colors: {{ hero.suitColors }}</li>
+      <li class="list-group-item">
+        Starting Power: {{ hero.startingPower | number: ".0-2" }}
+      </li>
+      <li class="list-group-item">
+        Current Power: {{ hero.currentPower | number: ".0-2" }}
+      </li>
+    </ul>
+    <div class="flex-row" *ngIf="allowTraining">
+      <div class="">
+        <button
+          class="btn btn-primary"
+          [disabled]="!canTrain"
+          (click)="trainHero()"
+        >
+          Train
+        </button>
+      </div>
+      <div>
+        <h3 *ngIf="canTrain">{{ hero.trainingCounter }}/5</h3>
+        <span *ngIf="!canTrain" class="alert-warning">
+          Hero reached max allowed training sessions for today
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

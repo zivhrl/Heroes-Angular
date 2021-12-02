@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <h1>Your Heroes</h1>
+    </div>
+    <div class="col-md-5 mt-3">
+      <h5 style="color: red">
+        (Remember our customer's information is confidential!!)
+      </h5>
+    </div>
+    <div class="col-md-3 mt-3">
+      <nav>
+        <ul class="pagination">
+          <li
+            class="page-item"
+            [ngClass]="currentPage - 1 === 0 ? 'disabled' : 'curser'"
+            (click)="goToPrevious()"
+          >
+            <a class="page-link">Previous</a>
+          </li>
+          <li class="page-item">
+            <p class="page-link">{{ currentPage }}/{{ maxPages }}</p>
+          </li>
+          `
+          <li
+            class="page-item"
+            [ngClass]="currentPage === maxPages ? 'disabled' : 'curser'"
+          >
+            <a class="page-link" (click)="goToNext()">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="row g-2">
+      <app-hero-card
+        class="col-md-4"
+        *ngFor="let hero of heroes"
+        [hero]="hero"
+        [allowTraining]="isFiltered"
+      ></app-hero-card>
+    </div>
+  </div>
+</div>
