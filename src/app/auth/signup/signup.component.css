@@ -1,0 +1,12 @@
+h2{
+  margin: 1rem 0;
+  text-align: center;
+}
+
+form{
+  max-width: 60vw;
+}
+
+input.ng-invalid.ng-touched{
+  border: 1px red solid;
+}
