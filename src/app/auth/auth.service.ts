@@ -15,7 +15,7 @@ import { User } from '../shared/models/user';
 })
 export class AuthService {
   user = new BehaviorSubject<User>(null);
-  signUpResult = new BehaviorSubject<string>(null);
+  isSuccess = new BehaviorSubject<boolean>(false);
   private apiAdress = environment.apiAdress + 'trainers/';
 
   constructor(
@@ -25,9 +25,8 @@ export class AuthService {
   ) {}
 
   signIn(signinCredentials: SigninCredentials) {
-    this.http
-      .post(this.apiAdress + 'signin', signinCredentials)
-      .subscribe((response: { success: boolean; token: string }) => {
+    this.http.post(this.apiAdress + 'signin', signinCredentials).subscribe(
+      (response: { success: boolean; token: string }) => {
         const jwtHelper = new JwtHelperService();
         const decodedToken = jwtHelper.decodeToken(response.token);
         let user: User = {
@@ -38,7 +37,11 @@ export class AuthService {
         this.user.next(user);
         localStorage.setItem('userData', JSON.stringify(user));
         this.router.navigate(['/my-heroes']);
-      });
+      },
+      (error) => {
+        this.isSuccess.next(false);
+      }
+    );
   }
 
   logout() {
@@ -62,6 +65,9 @@ export class AuthService {
         this.user.next(user);
         localStorage.setItem('userData', JSON.stringify(user));
         this.router.navigate(['/my-heroes']);
-      });
+      }),
+      (error) => {
+        this.isSuccess.next(false);
+      };
   }
 }

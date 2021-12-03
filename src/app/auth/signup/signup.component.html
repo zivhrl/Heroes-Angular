@@ -19,7 +19,7 @@
           placeholder="UserName"
           required
         />
-        <label for="name">Username</label>
+        <label for="name">User Name</label>
         <div class="alert-danger" *ngIf="name.invalid && name.touched">
           Please choose a username.
         </div>
@@ -68,11 +68,11 @@
         >
           SignUp
         </button>
-        <p *ngIf="signupResult === 'success'" class="alert-success">
+        <p *ngIf="isSuccess === true" class="alert-success">
           new user created successfully
         </p>
-        <p *ngIf="signupResult === 'error'" class="alert-danger">
-          Server Error
+        <p *ngIf="isSuccess === false" class="alert-danger">
+          Unable to register rechack your details
         </p>
       </div>
     </form>

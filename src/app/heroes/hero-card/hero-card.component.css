@@ -4,6 +4,7 @@
 .flex-row{
   display: flex;
   align-items: center;
+  justify-content: center;
 
 }
 .alert-warning{
@@ -11,4 +12,28 @@
 }
 .h3{
   padding-left: 8rem;
+}
+h4,h5{
+  text-align: center;
+}
+.card{
+  z-index: 2;
+}
+.card-body{
+  z-index: 2;
+}
+.class-bg{
+min-width: 100%;
+min-height: 100%;
+position: absolute;
+opacity: 0.2;
+z-index:1
+}
+
+.attacker{
+  background-image: url(src\app\shared\img\swords.png);
+
+}
+.defender{
+  background-image: url(src\app\shared\img\shield.png);
 }

@@ -13,6 +13,7 @@ export class HeroCardComponent implements OnInit {
   @Input() allowTraining: boolean;
   startedTraining: Date;
   canTrain: boolean;
+  isAttacker: boolean;
 
   constructor(private heroesService: HeroesService) {}
 
@@ -22,12 +23,13 @@ export class HeroCardComponent implements OnInit {
       this.canTrain = false;
     }
     this.startedTraining = new Date(this.hero.startedTraining);
+    this.isAttacker = this.hero.ability === 0 ? true : false;
   }
 
   trainHero() {
     console.log(this.hero.id);
     let hero: Hero = this.heroesService.trainHero(this.hero.id);
     console.log(hero);
-    // if (hero !== null) this.hero = hero;
+    if (hero !== null) this.hero = hero;
   }
 }

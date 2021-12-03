@@ -1,9 +1,10 @@
 <div class="card mb-2">
+  <div class="class-bg" [ngClass]="isAttacker ? 'attacker' : 'defender'"></div>
   <div class="card-body">
-    <h5 class="card-title">{{ hero.name }}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">
+    <h4 class="card-title">{{ hero.name }}</h4>
+    <h5 class="card-subtitle mb-2 text-muted">
       {{ hero.ability ? "Defender" : "Attacker" }}
-    </h6>
+    </h5>
     <div class="card-header">HERO'S STATS</div>
     <ul class="list-group list-group-flush">
       <li class="list-group-item">
@@ -21,7 +22,7 @@
         Current Power: {{ hero.currentPower | number: ".0-2" }}
       </li>
     </ul>
-    <div class="flex-row" *ngIf="allowTraining">
+    <div class="flex-row mt-1" *ngIf="allowTraining">
       <div class="">
         <button
           class="btn btn-primary"

@@ -12,17 +12,12 @@ import { AuthService } from '../auth.service';
 })
 export class SignupComponent implements OnInit, OnDestroy {
   @ViewChild('signUpForm', { static: false }) signUpForm: NgForm;
-  signupResult: string = '';
-  resultSub: Subscription;
+  successSub: Subscription;
+  isSuccess: boolean;
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-    this.authService.signUpResult.subscribe((res) => {
-      this.signupResult = res;
-      if (this.signupResult === 'success') this.signUpForm.resetForm();
-    });
-  }
+  ngOnInit(): void {}
 
   onSubmit() {
     let signupCredentials: SignupCredentials = {
@@ -31,10 +26,15 @@ export class SignupComponent implements OnInit, OnDestroy {
       password: this.signUpForm.value.password,
     };
     this.authService.signUp(signupCredentials);
-    console.log(this.signupResult);
+    if (this.successSub == null) {
+      this.successSub = this.authService.isSuccess.subscribe((res) => {
+        this.isSuccess = res;
+        if (this.isSuccess === true) this.signUpForm.resetForm();
+      });
+    }
   }
 
   ngOnDestroy(): void {
-    if (this.resultSub) this.resultSub.unsubscribe();
+    if (this.successSub) this.successSub.unsubscribe();
   }
 }
