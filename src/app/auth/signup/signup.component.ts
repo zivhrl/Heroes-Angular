@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { SignupCredentials } from 'src/app/shared/models/signup-credentials';
@@ -10,12 +11,10 @@ import { AuthService } from '../auth.service';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
 })
-export class SignupComponent implements OnInit, OnDestroy {
+export class SignupComponent implements OnInit {
   @ViewChild('signUpForm', { static: false }) signUpForm: NgForm;
-  successSub: Subscription;
-  isSuccess: boolean;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -25,16 +24,13 @@ export class SignupComponent implements OnInit, OnDestroy {
       email: this.signUpForm.value.email,
       password: this.signUpForm.value.password,
     };
-    this.authService.signUp(signupCredentials).subscribe();
-    if (this.successSub == null) {
-      this.successSub = this.authService.isSuccess.subscribe((res) => {
-        this.isSuccess = res;
-        if (this.isSuccess === true) this.signUpForm.resetForm();
-      });
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.successSub) this.successSub.unsubscribe();
+    this.authService.signUp(signupCredentials).subscribe(
+      () => {
+        this.router.navigate(['heroes/all-heroes']);
+      },
+      (err) => {
+        this.authService.handelError(err.error.StatusCode);
+      }
+    );
   }
 }

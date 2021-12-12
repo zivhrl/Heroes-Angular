@@ -6,27 +6,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { SigninComponent } from './auth/signin/signin.component';
-import { SignupComponent } from './auth/signup/signup.component';
 import { HeaderComponent } from './header/header.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { HeroCardComponent } from './heroes/hero-card/hero-card.component';
-import { HeroesListComponent } from './heroes/heroes-list/heroes-list.component';
-import { AllHeroesComponent } from './heroes/all-heroes/all-heroes.component';
-import { TrainersHeroesComponent } from './heroes/trainers-heroes/trainers-heroes.component';
-import { AuthModule } from './auth/auth.module';
 import { HeroesModule } from './heroes/heroes.module';
+import { ErrorBoxComponent } from './error-box/error-box.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, PageNotFoundComponent],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    AuthModule,
-    HeroesModule,
-    AppRoutingModule,
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    PageNotFoundComponent,
+    ErrorBoxComponent,
   ],
+  imports: [BrowserModule, HttpClientModule, FormsModule, AppRoutingModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

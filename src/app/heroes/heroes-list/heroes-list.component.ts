@@ -20,9 +20,7 @@ export class HeroesListComponent implements OnInit, OnDestroy {
   constructor(private heroesService: HeroesService) {}
 
   ngOnInit(): void {
-    this.heroesService
-      .getHeroes(this.pageSize, this.currentPage, this.isFiltered)
-      .subscribe();
+    this.getHeroes(this.pageSize, this.currentPage, this.isFiltered);
     this.heroesSub = this.heroesService.heroesUpdated.subscribe((res) => {
       this.heroes = res;
     });
@@ -34,18 +32,23 @@ export class HeroesListComponent implements OnInit, OnDestroy {
 
   goToNext() {
     if (this.currentPage === this.maxPages) return;
-    this.heroesService
-      .getHeroes(this.pageSize, this.currentPage + 1, this.isFiltered)
-      .subscribe();
+    this.getHeroes(this.pageSize, this.currentPage + 1, this.isFiltered);
     this.currentPage++;
   }
 
   goToPrevious() {
     if (this.currentPage === 1) return;
-    this.heroesService
-      .getHeroes(this.pageSize, this.currentPage - 1, this.isFiltered)
-      .subscribe();
+    this.getHeroes(this.pageSize, this.currentPage - 1, this.isFiltered);
     this.currentPage--;
+  }
+
+  getHeroes(pageSize: number, page: number, isFiltered: boolean) {
+    this.heroesService.getHeroes(pageSize, page, isFiltered).subscribe(
+      () => {},
+      (err) => {
+        this.heroesService.handelError(err.error.StatusCode);
+      }
+    );
   }
 
   ngOnDestroy(): void {

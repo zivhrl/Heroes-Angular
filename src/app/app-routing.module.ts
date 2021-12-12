@@ -9,19 +9,16 @@ import { AllHeroesComponent } from './heroes/all-heroes/all-heroes.component';
 //import { TrainersHeroesComponent } from './heroes/trainers-heroes/trainers-heroes.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'all-heroes' },
-  // { path: 'signin', component: SigninComponent },
-  // { path: 'signup', component: SignupComponent },
-  // {
-  //   path: 'all-heroes',
-  //   component: AllHeroesComponent,
-  //   canActivate: [AuthGuard],
-  // },
-  // {
-  //   path: 'my-heroes',
-  //   component: TrainersHeroesComponent,
-  //   canActivate: [AuthGuard],
-  // },
+  { path: '', pathMatch: 'full', redirectTo: 'heroes/all-heroes' },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
+    path: 'heroes',
+    loadChildren: () =>
+      import('./heroes/heroes.module').then((m) => m.HeroesModule),
+  },
   { path: '**', component: PageNotFoundComponent },
 ];
 

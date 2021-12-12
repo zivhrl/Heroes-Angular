@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { SigninCredentials } from 'src/app/shared/models/signin-credentials';
@@ -11,9 +12,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./signin.component.css'],
 })
 export class SigninComponent implements OnInit {
-  successSub: Subscription;
-  isSuccess: boolean;
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -23,14 +22,13 @@ export class SigninComponent implements OnInit {
       userName: signInForm.value.name,
       password: signInForm.value.password,
     };
-    this.authService.signIn(signinCredantials).subscribe();
-    if (this.successSub == null) {
-      this.successSub = this.authService.isSuccess.subscribe((res) => {
-        this.isSuccess = res;
-      });
-    }
-  }
-  ngOnDestroy(): void {
-    if (this.successSub) this.successSub.unsubscribe();
+    this.authService.signIn(signinCredantials).subscribe(
+      () => {
+        this.router.navigate(['heroes/my-heroes']);
+      },
+      (err) => {
+        this.authService.handelError(err.error.StatusCode);
+      }
+    );
   }
 }

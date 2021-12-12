@@ -6,14 +6,19 @@ import { TrainersHeroesComponent } from './trainers-heroes/trainers-heroes.compo
 
 const routes: Routes = [
   {
-    path: 'all-heroes',
-    component: AllHeroesComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'my-heroes',
-    component: TrainersHeroesComponent,
-    canActivate: [AuthGuard],
+    path: '',
+    children: [
+      {
+        path: 'all-heroes',
+        component: AllHeroesComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'my-heroes',
+        component: TrainersHeroesComponent,
+        canActivate: [AuthGuard],
+      },
+    ],
   },
 ];
 

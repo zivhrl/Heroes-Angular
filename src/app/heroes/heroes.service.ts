@@ -4,6 +4,7 @@ import { BehaviorSubject, Subject, pipe } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
+import { ErrorService } from '../error-box/error.service';
 import { Hero } from '../shared/models/hero';
 import { PagedResponse } from '../shared/models/pagedResponse';
 
@@ -14,7 +15,7 @@ export class HeroesService {
   maxPages = new BehaviorSubject<number>(1);
   private apiAdress = environment.apiAdress + 'heroes';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private errorService: ErrorService) {}
 
   getHeroes(pageSize: number, pageNumber: number, filterForTrainer: boolean) {
     const params = new HttpParams()
@@ -42,5 +43,9 @@ export class HeroesService {
 
   resetData() {
     this.heroes = [];
+  }
+
+  handelError(statusCode: number) {
+    this.errorService.setError(statusCode);
   }
 }
