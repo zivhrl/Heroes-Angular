@@ -34,7 +34,7 @@
           ngModel
           #password="ngModel"
           placeholder="Password"
-          minlength="8"
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*\W)(?=.*[A-Z]).{8,}"
           required
         />
         <label for="password">Password</label>
@@ -48,7 +48,7 @@
           class="btn btn-primary"
           [disabled]="signInForm.invalid"
         >
-          SignIn
+          Signin
         </button>
         <p *ngIf="isSuccess === false" class="alert-danger">
           user Name or Password are invalid

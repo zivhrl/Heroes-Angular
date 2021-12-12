@@ -27,9 +27,8 @@ export class HeroCardComponent implements OnInit {
   }
 
   trainHero() {
-    console.log(this.hero.id);
-    let hero: Hero = this.heroesService.trainHero(this.hero.id);
-    console.log(hero);
-    if (hero !== null) this.hero = hero;
+    this.heroesService.trainHero(this.hero.id).subscribe((res) => {
+      if (res !== null) this.hero = res;
+    });
   }
 }

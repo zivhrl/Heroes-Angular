@@ -20,11 +20,9 @@ export class HeroesListComponent implements OnInit, OnDestroy {
   constructor(private heroesService: HeroesService) {}
 
   ngOnInit(): void {
-    this.heroes = this.heroesService.getHeroes(
-      this.pageSize,
-      this.currentPage,
-      this.isFiltered
-    );
+    this.heroesService
+      .getHeroes(this.pageSize, this.currentPage, this.isFiltered)
+      .subscribe();
     this.heroesSub = this.heroesService.heroesUpdated.subscribe((res) => {
       this.heroes = res;
     });
@@ -36,21 +34,17 @@ export class HeroesListComponent implements OnInit, OnDestroy {
 
   goToNext() {
     if (this.currentPage === this.maxPages) return;
-    this.heroes = this.heroesService.getHeroes(
-      this.pageSize,
-      this.currentPage + 1,
-      this.isFiltered
-    );
+    this.heroesService
+      .getHeroes(this.pageSize, this.currentPage + 1, this.isFiltered)
+      .subscribe();
     this.currentPage++;
   }
 
   goToPrevious() {
     if (this.currentPage === 1) return;
-    this.heroes = this.heroesService.getHeroes(
-      this.pageSize,
-      this.currentPage - 1,
-      this.isFiltered
-    );
+    this.heroesService
+      .getHeroes(this.pageSize, this.currentPage - 1, this.isFiltered)
+      .subscribe();
     this.currentPage--;
   }
 

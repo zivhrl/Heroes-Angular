@@ -25,7 +25,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       email: this.signUpForm.value.email,
       password: this.signUpForm.value.password,
     };
-    this.authService.signUp(signupCredentials);
+    this.authService.signUp(signupCredentials).subscribe();
     if (this.successSub == null) {
       this.successSub = this.authService.isSuccess.subscribe((res) => {
         this.isSuccess = res;

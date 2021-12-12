@@ -14,20 +14,19 @@ import { HeroCardComponent } from './heroes/hero-card/hero-card.component';
 import { HeroesListComponent } from './heroes/heroes-list/heroes-list.component';
 import { AllHeroesComponent } from './heroes/all-heroes/all-heroes.component';
 import { TrainersHeroesComponent } from './heroes/trainers-heroes/trainers-heroes.component';
+import { AuthModule } from './auth/auth.module';
+import { HeroesModule } from './heroes/heroes.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SigninComponent,
-    SignupComponent,
-    HeaderComponent,
-    PageNotFoundComponent,
-    HeroCardComponent,
-    HeroesListComponent,
-    AllHeroesComponent,
-    TrainersHeroesComponent,
+  declarations: [AppComponent, HeaderComponent, PageNotFoundComponent],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    AuthModule,
+    HeroesModule,
+    AppRoutingModule,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
