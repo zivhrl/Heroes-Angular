@@ -22,7 +22,7 @@ export class HeroCardComponent implements OnInit {
     if (this.hero.trainingCounter === 5) {
       this.canTrain = false;
     }
-    this.startedTraining = new Date(this.hero.startedTraining);
+    this.startedTraining = new Date(this.hero.startedTrainingDate);
     this.isAttacker = this.hero.ability === 0 ? true : false;
   }
 

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ErrorService } from 'src/app/error-box/error.service';
 
 import { SignupCredentials } from 'src/app/shared/models/signup-credentials';
 import { AuthService } from '../auth.service';
@@ -14,7 +15,11 @@ import { AuthService } from '../auth.service';
 export class SignupComponent implements OnInit {
   @ViewChild('signUpForm', { static: false }) signUpForm: NgForm;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private errorService: ErrorService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
@@ -29,7 +34,8 @@ export class SignupComponent implements OnInit {
         this.router.navigate(['heroes/all-heroes']);
       },
       (err) => {
-        this.authService.handelError(err.error.StatusCode);
+        this.authService.handelError();
+        this.errorService.setError(err.error.StatusCode);
       }
     );
   }

@@ -25,7 +25,6 @@ export class AuthService {
   signIn(signinCredentials: SigninCredentials) {
     return this.http.post(this.apiAdress + 'signin', signinCredentials).pipe(
       tap((response: { success: boolean; token: string }) => {
-        console.log('test');
         this.handleAutentication(response);
       })
     );
@@ -64,7 +63,7 @@ export class AuthService {
     sessionStorage.setItem('userData', JSON.stringify(user));
   }
 
-  handelError(statusCode: number) {
-    this.errorService.setError(statusCode);
+  handelError() {
+    this.user.next(null);
   }
 }

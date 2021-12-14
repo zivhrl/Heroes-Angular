@@ -4,7 +4,7 @@ export interface Hero {
   id: string;
   name: string;
   ability: Ability;
-  startedTraining: Date;
+  startedTrainingDate: Date;
   suitColors: string;
   startingPower: number;
   currentPower: number;

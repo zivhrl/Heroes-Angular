@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ErrorService } from 'src/app/error-box/error.service';
 
 import { Hero } from 'src/app/shared/models/hero';
 import { HeroesService } from '../heroes.service';
@@ -17,7 +18,10 @@ export class HeroesListComponent implements OnInit, OnDestroy {
   currentPage: number = 1;
   maxPages: number;
   maxPagesSub: Subscription;
-  constructor(private heroesService: HeroesService) {}
+  constructor(
+    private heroesService: HeroesService,
+    private errorService: ErrorService
+  ) {}
 
   ngOnInit(): void {
     this.getHeroes(this.pageSize, this.currentPage, this.isFiltered);
@@ -46,7 +50,7 @@ export class HeroesListComponent implements OnInit, OnDestroy {
     this.heroesService.getHeroes(pageSize, page, isFiltered).subscribe(
       () => {},
       (err) => {
-        this.heroesService.handelError(err.error.StatusCode);
+        this.errorService.setError(err.error.StatusCode);
       }
     );
   }

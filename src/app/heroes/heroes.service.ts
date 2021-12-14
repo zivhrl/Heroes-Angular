@@ -44,8 +44,4 @@ export class HeroesService {
   resetData() {
     this.heroes = [];
   }
-
-  handelError(statusCode: number) {
-    this.errorService.setError(statusCode);
-  }
 }
